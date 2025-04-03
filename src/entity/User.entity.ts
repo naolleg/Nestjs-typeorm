@@ -6,8 +6,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Post } from './Post';
-import { Profile } from './Profile';
+import { Post } from './Post.entity';
+import { Profile } from './Profile.entity';
 
 @Entity({ name: 'users' })
 export class User {

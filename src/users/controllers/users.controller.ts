@@ -8,11 +8,11 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateUserDto } from '../../dtos/CreateUser.dto';
-import { CreateUserPostDto } from '../../dtos/CreateUserPost.dto';
-import { CreateUserProfileDto } from '../../dtos/CreateUserProfile.dto';
-import { UpdateUserDto } from '../../dtos/UpdateUser.dto';
-import { UsersService } from '../../services/users/users.service';
+import { CreateUserDto } from '../dtos/CreateUser.dto';
+import { CreateUserPostDto } from '../dtos/CreateUserPost.dto';
+import { CreateUserProfileDto } from '../dtos/CreateUserProfile.dto';
+import { UpdateUserDto } from '../dtos/UpdateUser.dto';
+import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {

@@ -1,16 +1,16 @@
 import { ConflictException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Post } from '../../../typeorm/entities/Post';
-import { Profile } from '../../../typeorm/entities/Profile';
-import { User } from '../../../typeorm/entities/User';
+import { Post } from '../../entity/Post.entity';
+import { Profile } from '../../entity/Profile.entity';
+import { User } from '../../entity/User.entity';
 import * as bcrypt from 'bcryptjs';
 import {
   CreateUserParams,
   CreateUserPostParams,
   CreateUserProfileParams,
   UpdateUserParams,
-} from '../../../utils/types';
+} from '../../utils/types';
 
 @Injectable()
 export class UsersService {
