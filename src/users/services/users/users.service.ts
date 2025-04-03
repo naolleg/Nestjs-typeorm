@@ -1,9 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from '../../../typeorm/entities/Post';
 import { Profile } from '../../../typeorm/entities/Profile';
 import { User } from '../../../typeorm/entities/User';
+import * as bcrypt from 'bcryptjs';
 import {
   CreateUserParams,
   CreateUserPostParams,
@@ -23,13 +24,32 @@ export class UsersService {
     return this.userRepository.find({ relations: ['profile', 'posts'] });
   }
 
-  createUser(userDetails: CreateUserParams) {
+  async createUser(userDetails: CreateUserParams): Promise<User> {
+    const { username ,password} = userDetails;
+  
+    
+    const existingUser = await this.userRepository.findOne({
+      where: [ { username }],
+    });
+  
+    if (existingUser) {
+      throw new ConflictException(
+        'Email or UserName already exist. Try to use another one.',
+      );
+    }
+  
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+  
     const newUser = this.userRepository.create({
       ...userDetails,
+      password: hashedPassword,
       createdAt: new Date(),
     });
+  
     return this.userRepository.save(newUser);
   }
+  
 
   updateUser(id: number, updateUserDetails: UpdateUserParams) {
     return this.userRepository.update({ id }, { ...updateUserDetails });
